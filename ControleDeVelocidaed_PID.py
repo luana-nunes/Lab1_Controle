@@ -114,10 +114,10 @@ GHw3 = Hw3*Gw
 print('Polos e zeros - GHw1')
 print(co.pole(GHw1))
 print(co.zero(GHw1))
-print('Polos e zeros - GHw2')
+print('\nPolos e zeros - GHw2')
 print(co.pole(GHw2))
 print(co.zero(GHw2))
-print('Polos e zeros - GHw3')
+print('\nPolos e zeros - GHw3')
 print(co.pole(GHw3))
 print(co.zero(GHw3))
 #%
@@ -125,16 +125,9 @@ print(co.zero(GHw3))
 #%
 
 
-fig=plt.figure(1,figsize=(8, 8))
-
-fig.add_subplot(3,1,1)
-co.pzmap(GHw1,fig)
-plt.imshow(img)
-fig.add_subplot(3,1,2)
-plt.imshow(co.pzmap(GHw2))
-fig.add_subplot(3,1,3)
-plt.imshow(co.pzmap(GHw2))
-plt.show()
+co.pzmap(GHw1, title = "GHw1")
+co.pzmap(GHw2,title = "GHw2")
+co.pzmap(GHw2, title = "GHw3")
 
 #plt.subplots_adjust(left=None, bottom=None, right=None, top=None, wspace=None, hspace=0.45)
 #
@@ -179,32 +172,27 @@ cloop3 = co.feedback(GHw3,1)
 #% comando pole() obtem os polos do sistema
 #% e zero() obtem os zeros do sistema
 #%
-print('Polos e zeros cloop1')
+print('\nPolos e zeros cloop1')
 print(co.pole(cloop1))
 print(co.zero(cloop1))
-print('Polos e zeros cloop2')
+print('\nPolos e zeros cloop2')
 print(co.pole(cloop2))
 print(co.zero(cloop2))
-print('Polos e zeros cloop3')
+print('\nPolos e zeros cloop3')
 print(co.pole(cloop3))
 print(co.zero(cloop3))
 #%
 #%  Plot com os polos e zeros de malha fechada
 #%
-figure(2)
-subplot(1,3,1)
+
 #% comando pzplot()
 #% plot os polos e zeros
-co.pzmap(cloop1)     
-title('m. fechada CL1')
+co.pzmap(cloop1, title = 'm. fechada CL1')
 #axis equal
-subplot(1,3,2)
-co.pzmap(cloop2)
-title('m. fechada CL2')
+co.pzmap(cloop2, title ='m. fechada CL2')
 #axis equal
-subplot(1,3,3)
-co.pzmap(cloop3)
-title('m. fechada CL3')
+#subplot(1,3,3)
+co.pzmap(cloop3, title ='m. fechada CL3')
 #axis equal
 #%
 #% Grafico da resposta a degrau
@@ -212,12 +200,37 @@ title('m. fechada CL3')
 tfinal = 12
 tspan = np.linspace(0,tfinal,int(tfinal//0.02))
 tspan = tspan.reshape(-1,1)
-figure(3)
+
 #%
 #% comando stepplot() simula e plota
 #% a resposta a degrau unitaria
 #%
-stepplot(cloop1,cloop2,cloop3,tspan)
+
+y,t = co.step(cloop1,tspan)
+plt.figure(7)
+plt.plot(t,y)
+plt.title("Step c.loop1")
+plt.xlabel("Tempo[s]")
+plt.ylabel("Amplitude")
+plt.grid()
+
+y,t = co.step(cloop2,tspan)
+plt.figure(8)
+plt.plot(t,y)
+plt.title("Step c.loop2")
+plt.xlabel("Tempo[s]")
+plt.ylabel("Amplitude")
+plt.grid()
+
+y,t = co.step(cloop3,tspan)
+plt.figure(9)
+plt.plot(t,y)
+plt.title("Step c.loop3")
+plt.xlabel("Tempo[s]")
+plt.ylabel("Amplitude")
+plt.grid()
+
+#stepplot(cloop1,cloop2,cloop3,tspan)
 #grid on
 #%
 #% Caracteristicas da resposta a degrau
@@ -225,11 +238,11 @@ stepplot(cloop1,cloop2,cloop3,tspan)
 #%
 #% Comando stepinfo()
 #% calcula as caracteristicas da resposta a degrau
-print('caracteristicas da resposta a degrau cloop1')
+print('\ncaracteristicas da resposta a degrau cloop1')
 print(co.stepinfo(cloop1))
-print('caracteristicas da resposta a degrau cloop2')
+print('\ncaracteristicas da resposta a degrau cloop2')
 print(co.stepinfo(cloop2))
-print('caracteristicas da resposta a degrau cloop3')
+print('\ncaracteristicas da resposta a degrau cloop3')
 print(co.stepinfo(cloop3))
 #%
 #% Funcao de transferencia para calculo do esforco de controle u(t)
@@ -248,15 +261,40 @@ print(co.stepinfo(cloop3))
 esforco1 = co.feedback(Hw1,Gw)
 esforco2 = co.feedback(Hw2,Gw)
 esforco3 = co.feedback(Hw3,Gw)
-figure(4)
-stepplot(esforco1,esforco2,esforco3,t)
-grid on
+
+y,t = co.step(esforco1,tspan)
+plt.figure(10)
+plt.plot(t,y)
+plt.title("Step esforco1")
+plt.xlabel("Tempo[s]")
+plt.ylabel("Amplitude")
+plt.grid()
+
+y,t = co.step(esforco2,tspan)
+plt.figure(11)
+plt.plot(t,y)
+plt.title("Step esforco2")
+plt.xlabel("Tempo[s]")
+plt.ylabel("Amplitude")
+plt.grid()
+
+y,t = co.step(esforco3,tspan)
+plt.figure(12)
+plt.plot(t,y)
+plt.title("Step esforco3")
+plt.xlabel("Tempo[s]")
+plt.ylabel("Amplitude")
+plt.grid()
+
+#figure(4)
+#stepplot(esforco1,esforco2,esforco3,tspan)
+#grid on
 #%
 #% Caracteristicas do esforco de controle
 #%
-print('caracteristicas do esforco de controle de cloop1')
-info=stepinfo(esforco1)
-print('caracteristicas do esforco de controle de cloop2')
-info=stepinfo(esforco2)
-print('caracteristicas do esforco de controle de cloop3')
-info=stepinfo(esforco3)
+print('\ncaracteristicas do esforco de controle de cloop1')
+print(co.stepinfo(esforco1))
+print('\ncaracteristicas do esforco de controle de cloop2')
+print(co.stepinfo(esforco2))
+print('\ncaracteristicas do esforco de controle de cloop3')
+print(co.stepinfo(esforco3))
