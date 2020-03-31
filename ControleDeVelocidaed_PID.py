@@ -127,7 +127,7 @@ print(co.zero(GHw3))
 
 co.pzmap(GHw1, title = "GHw1")
 co.pzmap(GHw2,title = "GHw2")
-co.pzmap(GHw2, title = "GHw3")
+co.pzmap(GHw3, title = "GHw3")
 
 #plt.subplots_adjust(left=None, bottom=None, right=None, top=None, wspace=None, hspace=0.45)
 #
