@@ -61,13 +61,13 @@ if Ti1 == float('inf') and Td1 == 0 and N1 == float('inf'):
     H1  = Kp1
 #Controlador PI
 elif Td1 == 0 and N1 == float('inf'):
-    H1 = Kp1*(1+(1/Ti1*s))
+    H1 = Kp1*(1+(1/(Ti1*s)))
 #Controlador PD
 elif Ti1 == float('inf'):
     H1 = Kp1*(1+(Td1*s/((Td1/N1)*(s+1))))
 #Controlador PID
 else:
-    H1 = Kp1*(1+(1/Ti1*s)+(Td1*s/((Td1/N1)*(s+1))))
+    H1 = Kp1*(1+(1/(Ti1*s))+(Td1*s/((Td1/N1)*(s+1))))
 Hp1 = Kpot*H1
 
 #% Controlador 2
@@ -80,13 +80,13 @@ if Ti2 == float('inf') and Td2 == 0 and N2 == float('inf'):
     H2  = Kp2
 #Controlador PI
 elif Td2 == 0 and N2 == float('inf'):
-    H2 = Kp2*(1+(1/Ti2*s))
+    H2 = Kp2*(1+(1/(Ti2*s)))
 #Controlador PD
 elif Ti2 == float('inf'):
     H2 = Kp2*(1+(Td2*s/((Td2/N2)*(s+1))))
 #Controlador PID
 else:
-    H2 = Kp2*(1+(1/Ti2*s)+(Td2*s/((Td2/N2)*(s+1))))
+    H2 = Kp2*(1+(1/(Ti2*s))+(Td2*s/((Td2/N2)*(s+1))))
 Hp2 = Kpot*H2
 
 #% Controlador 3
@@ -99,13 +99,13 @@ if Ti3 == float('inf') and Td3 == 0 and N3 == float('inf'):
     H3 = Kp3
 #Controlador PI
 elif Td3 == 0 and N3 == float('inf'):
-    H3 = Kp3*(1+(1/Ti3*s))
+    H3 = Kp3*(1+(1/(Ti3*s)))
 #Controlador PD
 elif Ti3 == float('inf'):
     H3 = Kp3*(1+(Td3*s/((Td3/N3)*(s+1))))
 #Controlador PID
 else:
-    H3 = Kp3*(1+(1/Ti3*s)+(Td3*s/((Td3/N3)*(s+1))))
+    H3 = Kp3*(1+(1/(Ti3*s)))+(Td3*s/((Td3/N3)*(s+1))))
 Hp3 = Kpot*H3
 
 #%
@@ -206,18 +206,18 @@ plt.xlabel("Tempo[s]")
 plt.ylabel("Amplitude")
 plt.grid()
 
-y,t = co.step(cloop2,tspan)
+y1,t1 = co.step(cloop2,tspan)
 plt.figure(8)
-plt.plot(t,y)
+plt.plot(t1,y1)
 plt.title("Step c.loop2")
 plt.xlabel("Tempo[s]")
 plt.ylabel("Amplitude")
 plt.grid()
 
-y,t = co.step(cloop3,tspan)
+y2,t2 = co.step(cloop3,tspan)
 plt.figure(9)
-plt.plot(t,y)
-plt.title("Step c.loop3")
+plt.plot(t,y,t1,y1,t2,y2)
+plt.title("Step")
 plt.xlabel("Tempo[s]")
 plt.ylabel("Amplitude")
 plt.grid()
@@ -249,17 +249,17 @@ plt.xlabel("Tempo[s]")
 plt.ylabel("Amplitude")
 plt.grid()
 
-y,t = co.step(esforco2,tspan)
+y1,t1= co.step(esforco2,tspan)
 plt.figure(11)
-plt.plot(t,y)
+plt.plot(t1,y1)
 plt.title("Step esforco2")
 plt.xlabel("Tempo[s]")
 plt.ylabel("Amplitude")
 plt.grid()
 
-y,t = co.step(esforco3,tspan)
+y2,t2 = co.step(esforco3,tspan)
 plt.figure(12)
-plt.plot(t,y)
+plt.plot(t2,y2)
 plt.title("Step esforco3")
 plt.xlabel("Tempo[s]")
 plt.ylabel("Amplitude")
