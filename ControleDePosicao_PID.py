@@ -105,7 +105,7 @@ elif Ti3 == float('inf'):
     H3 = Kp3*(1+(Td3*s/((Td3/N3)*(s+1))))
 #Controlador PID
 else:
-    H3 = Kp3*(1+(1/(Ti3*s)))+(Td3*s/((Td3/N3)*(s+1))))
+    H3 = Kp3*(1+(1/(Ti3*s))+(Td3*s/((Td3/N3)*(s+1))))
 Hp3 = Kpot*H3
 
 #%
