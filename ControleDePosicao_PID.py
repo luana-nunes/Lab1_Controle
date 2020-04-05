@@ -10,6 +10,8 @@ import control as co_general
 import matplotlib.pyplot as plt
 import control.matlab as co
 
+
+plt.close("all")
 #%
 #% Controle de posicao angular do motor eletrico CC
 #% Testes com controlador PID
@@ -52,8 +54,8 @@ Gp = (K1*Km*Kg)/(s*(s+a)*(s+am))
 #% Escolha dos parametros
 #%
 #% Controlador 1
-Kp1 = 10
-Ti1 = float('inf')
+Kp1 = 5
+Ti1 = 0.1
 Td1 = 0
 N1  = float('inf')
 #Controlador P
@@ -71,8 +73,8 @@ else:
 Hp1 = Kpot*H1
 
 #% Controlador 2
-Kp2 = 20
-Ti2 = float('inf')
+Kp2 = 5
+Ti2 = 0.2
 Td2 = 0
 N2  = float('inf')
 #Controlador P
@@ -90,8 +92,8 @@ else:
 Hp2 = Kpot*H2
 
 #% Controlador 3
-Kp3 = 50
-Ti3 = float('inf')
+Kp3 = 5
+Ti3 = 0.5
 Td3 = 0
 N3  = float('inf')
 #Controlador P
@@ -218,6 +220,7 @@ y2,t2 = co.step(cloop3,tspan)
 plt.figure(9)
 plt.plot(t,y,t1,y1,t2,y2)
 plt.title("Step")
+plt.legend(['Sistema 1', 'Sistema 2', 'Sistema 3'])
 plt.xlabel("Tempo[s]")
 plt.ylabel("Amplitude")
 plt.grid()
@@ -227,7 +230,7 @@ plt.grid()
 #% Tr - Tempo de subida, Ts - Tempo de acomodacao, Mp - Maximo sobresinal
 #%
 print('\ncaracteristicas da resposta a degrau cloop1')
-print(co.stepinfo(cloop1))
+#print(co.stepinfo(cloop1))
 print('\ncaracteristicas da resposta a degrau cloop2')
 print(co.stepinfo(cloop2))
 print('\ncaracteristicas da resposta a degrau cloop3')

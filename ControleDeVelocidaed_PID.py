@@ -9,6 +9,8 @@ import control as co_general
 import matplotlib.pyplot as plt
 import control.matlab as co
 import sympy
+
+plt.close("all")
 #%
 #% Controle de velocidade angular do motor eletrico CC
 #% Testes com controle PID
@@ -48,10 +50,10 @@ Gw = (K1*Km*Kg)/((s+a)*(s+am))
 #% Escolha dos parametros
 #%
 #% Controlador 1
-Kp1 = 5
-Ti1 = 0.1
-Td1 = 0
-N1  = float('inf')
+Kp1 = 1
+Ti1 = float('inf')
+Td1 = 0.1
+N1  = 1
 #Controlador P
 if Ti1 == float('inf') and Td1 == 0 and N1 == float('inf'):
     H1  = Kp1
@@ -60,16 +62,16 @@ elif Td1 == 0 and N1 == float('inf'):
     H1 = Kp1*(1+(1/(Ti1*s)))
 #Controlador PD
 elif Ti1 == float('inf'):
-    H1 = Kp1*(1+(Td1*s/((Td1/N1)*(s+1))))
+    H1 = Kp1*(1+(Td1*(s/((Td1/N1)*(s)+1))))
 #Controlador PID
 else:
-    H1 = Kp1*(1+(1/(Ti1*s))+(Td1*s/((Td1/N1)*(s+1))))
+    H1 = Kp1*(1+(1/(Ti1*s))+(Td1*s/((Td1/N1)*(s)+1)))
 Hw1 = Ktac*H1
 #% Controlador 2
-Kp2 = 5
-Ti2 = 0.2
-Td2 = 0
-N2  = float('inf')
+Kp2 = 1
+Ti2 = float('inf')
+Td2 = 0.5
+N2  = 1
 #Controlador P
 if Ti2 == float('inf') and Td2 == 0 and N2 == float('inf'):
     H2  = Kp2
@@ -78,16 +80,16 @@ elif Td2 == 0 and N2 == float('inf'):
     H2 = Kp2*(1+(1/(Ti2*s)))
 #Controlador PD
 elif Ti2 == float('inf'):
-    H2 = Kp2*(1+(Td2*s/((Td2/N2)*(s+1))))
+    H2 = Kp2*(1+(Td2*s/((Td2/N2)*(s)+1)))
 #Controlador PID
 else:
-    H2 = Kp2*(1+(1/(Ti2*s))+(Td2*s/((Td2/N2)*(s+1))))
+    H2 = Kp2*(1+(1/(Ti2*s))+(Td2*s/((Td2/N2)*(s)+1)))
 Hw2 = Ktac*H2
 #% Controlador 3
-Kp3 = 5
-Ti3 = 0.5
-Td3 = 0
-N3  = float('inf')
+Kp3 = 1
+Ti3 = float('inf')
+Td3 = 1.5
+N3  = 1
 #Controlador P
 if Ti3 == float('inf') and Td3 == 0 and N3 == float('inf'):
     H3 = Kp3
@@ -96,10 +98,10 @@ elif Td3 == 0 and N3 == float('inf'):
     H3 = Kp3*(1+(1/(Ti3*s)))
 #Controlador PD
 elif Ti3 == float('inf'):
-    H3 = Kp3*(1+(Td3*s/((Td3/N3)*(s+1))))
+    H3 = Kp3*(1+(Td3*s/((Td3/N3)*(s)+1)))
 #Controlador PID
 else:
-    H3 = Kp3*(1+(1/(Ti3*s))+(Td3*s/((Td3/N3)*(s+1))))
+    H3 = Kp3*(1+(1/(Ti3*s))+(Td3*s/((Td3/N3)*(s)+1)))
 Hw3 = Ktac*H3
 #%
 #% Definicao da malha aberta
@@ -226,6 +228,7 @@ y2,t2 = co.step(cloop3,tspan)
 plt.figure(9)
 plt.plot(t,y,t1,y1,t2,y2)
 plt.title("Step Sistemas")
+plt.legend(["Sistema 1","Sistema 2","Sistema 3"])
 plt.xlabel("Tempo[s]")
 plt.ylabel("Amplitude")
 plt.grid()

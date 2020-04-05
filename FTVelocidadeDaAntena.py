@@ -10,6 +10,7 @@ import matplotlib.pyplot as plt
 import control.matlab as co
 import sympy
 
+plt.close("all")
 
 # Parametros da funcao de transferencia
 K1 = 100
@@ -46,6 +47,7 @@ tspan = tspan.reshape(-1,1)
 y,t = co.step(Gomega,tspan)
 plt.figure(2)
 plt.plot(t,y)
+plt.title("Step response")
 plt.xlabel("Tempo[s]")
 plt.ylabel("Amplitude")
 plt.grid()
